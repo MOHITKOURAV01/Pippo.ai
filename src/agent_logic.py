@@ -21,3 +21,14 @@ from src.utils import (
 )
 
 load_dotenv()
+
+# --- State Definition ---
+class AgentState(TypedDict):
+    clause: str
+    ml_result: Dict[str, Any]
+    analysis: Dict[str, Any]
+    risks: Dict[str, Any]
+    review: Dict[str, Any]
+    final_output: Dict[str, Any]
+    iterations: int
+    max_iterations: int
