@@ -57,7 +57,7 @@ This map outlines the specialized roles for Phase 1 and Phase 2.
 %%{init: {
   'theme': 'base',
   'themeVariables': {
-    'primaryColor': '#FF8C00',
+    'primaryColor': '#FF6B00',
     'textColor': '#000000',
     'mainBkg': '#FFFFFF',
     'nodeTextColor': '#000000',
