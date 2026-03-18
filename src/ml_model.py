@@ -20,3 +20,14 @@ class LegalMLModel:
             except Exception as e:
                 logger.error(f"Error loading model: {e}")
                 self.model = None
+
+    def get_risk_score(self, text: str) -> Dict[str, Any]:
+        """
+        Predicts risk score using the deserialized model.
+        Returns a dictionary with is_risky and risk_probability.
+        """
+        if self.model is None:
+            return {"is_risky": False, "risk_probability": 0.0}
+        
+        try:
+            # The model is a Pipeline including TfidfVectorizer
