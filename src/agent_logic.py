@@ -124,3 +124,13 @@ class LegalReasoningAgent:
         }
         return state
 
+    def _should_continue(self, state: AgentState) -> Literal["continue", "end"]:
+        """ Conditional edge logic for self-correction loop. """
+        review = state.get('review', {})
+        if review.get('needs_correction', False) and state['iterations'] < state['max_iterations']:
+            logger.warning(f"Self-Correction Triggered: {review.get('correction_instructions')}")
+            return "continue"
+        return "end"
+
+    def _build_graph(self):
+        builder = StateGraph(AgentState)
