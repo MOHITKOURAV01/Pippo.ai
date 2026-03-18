@@ -154,3 +154,13 @@ class LegalReasoningAgent:
                 "continue": "analyze",
                 "end": "finalize"
             }
+        )
+        
+        builder.add_edge("finalize", END)
+        
+        return builder.compile()
+
+    def run_analysis(self, clause_text: str) -> Dict[str, Any]:
+        """ Public interface to run the full pipeline. """
+        logger.info(f"Starting analysis for clause: {clause_text[:50]}...")
+        
