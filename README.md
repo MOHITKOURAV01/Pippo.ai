@@ -10,19 +10,34 @@ Design and implement an AI-driven legal document analysis system that identifies
     ```
 
 ## Project Roadmap
-- [x] Directory structure setup (Kumar Gautam)
-- [x] Basic text cleaning logic (Kumar Gautam)
-- [x] Clause splitting & Hierarchy methods (Kumar Gautam)
-- [x] PDF text extraction & OCR detection (Kumar Gautam)
-- [x] Automated data preparation script (Kumar Gautam)
-- [x] ML Model Training & Pipeline (Mohit Kourav)
-    - [x] TF-IDF Vectorization logic
-    - [x] RandomForest Classification model
-- [x] Advanced Intelligence Hub (Kumar Gautam)
-    - [x] HUD-inspired UI Design (Succesship style)
-    - [x] Deep Metadata Extraction (Parties, Dates, Law)
-    - [x] Automated Deep Audit System
-    - [x] Real-time Scanning Simulation & Analytics
+
+### 📦 Milestone 1: Automated ML Classification Pipeline
+- [x] **Core Extraction Engine** (Kumar Gautam)
+    - Directory & Environment Architecture
+    - PDF Stream Parsers & Text Normalization
+    - Regex-based Clause Segmentation Logic
+- [x] **Risk Assessment Model** (Mohit Kourav)
+    - TF-IDF Feature Engineering
+    - RandomForest Model Serialization
+    - Global Risk Prediction Scopes
+- [x] **Initial Telemetry Dashboard** (Karan Thakur)
+    - Base Streamlit Interface Logic
+    - Visual Probability Matrix Display
+
+### ⚡ Milestone 2: Intelligent HUD & Deep Audit Interface
+- [x] **Data Intelligence Layer** (Kumar Gautam)
+    - Legal Metadata Extraction (Parties, Jurisdiction, Dates)
+    - OCR-Detection & Image-PDF Support Infrastructure
+- [x] **Premium User Experience (UX)** (Kumar Gautam)
+    - HUD-Inspired Dark Theme (Succesship Aesthetics)
+    - Real-time Scanning & Processing Simulation HUD
+    - Dynamic Intelligence Bento-Cards for Metrics
+- [ ] **Advanced Reasoning Engine** (Mohit Kourav) [In Development]
+    - Graph-based Reasoning Orchestrator
+    - Multistep Logic Verification Chains
+- [ ] **Functional Persistence** (Karan Thakur) [In Development]
+    - Secure SQLite Audit Log Storage
+    - Multi-Format (PDF/JSON) Intelligence Report Export
 
 ## How to Run (Workflow)
 1. **Install what's needed:**
