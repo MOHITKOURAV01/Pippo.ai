@@ -32,3 +32,14 @@ class AgentState(TypedDict):
     final_output: Dict[str, Any]
     iterations: int
     max_iterations: int
+
+# --- Node Implementation ---
+
+class LegalReasoningAgent:
+    def __init__(self, model_name: str = "gpt-4o"):
+        api_key = os.getenv("OPENAI_API_KEY")
+        if not api_key:
+            raise ValueError("OPENAI_API_KEY environment variable not set.")
+        
+        self.llm = ChatOpenAI(model=model_name, temperature=0)
+        self.ml_engine = LegalMLModel()
