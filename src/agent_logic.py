@@ -43,3 +43,14 @@ class LegalReasoningAgent:
         
         self.llm = ChatOpenAI(model=model_name, temperature=0)
         self.ml_engine = LegalMLModel()
+        self.workflow = self._build_graph()
+
+    def _call_llm_json(self, system_prompt: str, user_input: str) -> Dict[str, Any]:
+        """ Helper to call LLM and ensure JSON output. """
+        messages = [
+            ("system", system_prompt),
+            ("user", user_input)
+        ]
+        response = self.llm.invoke(messages)
+        parsed = parse_json_with_retry(response.content)
+        
