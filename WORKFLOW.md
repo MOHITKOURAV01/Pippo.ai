@@ -82,12 +82,16 @@ mindmap
       Automated Audit Integration
     Mohit Kourav
       ::icon(fa fa-brain)
-      ML Classification Engine
-      Reasoning Logic Backend
+      Intelligence Logic Microservices
+      Graph-based Reasoning Architecture
+      Statistical Risk Variance Mapping
+      Validation Verification Framework
     Karan Thakur
       ::icon(fa fa-file-export)
-      Audit Report Export Logic
-      Backend Data Persistence
+      Multiformat Report Generation Engine
+      Relational Persistence Layers (SQLite)
+      Frontend-Backend State Middleware
+      High-Concurrency Batch Orchestration
 ```
 
 ## 5. System Themes & Styling
