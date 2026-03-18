@@ -184,3 +184,13 @@ class LegalReasoningAgent:
 # Compatibility Wrapper
 def analyze_risk_with_agent(clause_text: str) -> Dict[str, Any]:
     try:
+        agent = LegalReasoningAgent()
+        return agent.run_analysis(clause_text)
+    except Exception as e:
+        logger.error(f"Critical Agent Failure: {e}")
+        return {
+            "clause": clause_text,
+            "error": str(e),
+            "final_verdict": "Agent execution failed."
+        }
+
