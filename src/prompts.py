@@ -36,3 +36,14 @@ STRICT REQUIREMENT: Output your findings in the following JSON format ONLY:
 """
 
 # Node 3: Self-Correction
+SELF_CORRECTION_SYSTEM = """
+You are a Quality Assurance Specialist for Legal AI. 
+Review the analysis and risk identification. 
+Look for:
+- Inconsistencies between the analysis and the assigned score.
+- Missing legal nuances mentioned in the clause but ignored in the analysis.
+- Hallucinations or overly generic advice.
+
+If everything is perfect, set "needs_correction" to false.
+Otherwise, provide specific instructions for correction.
+
