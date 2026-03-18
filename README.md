@@ -11,7 +11,7 @@ Design and implement an AI-driven legal document analysis system that identifies
 
 ## Project Roadmap
 
-### 📦 Milestone 1: Automated ML Classification Pipeline
+### Milestone 1: Automated ML Classification Pipeline
 - [x] **Core Extraction Engine** (Kumar Gautam)
     - Directory & Environment Architecture
     - PDF Stream Parsers & Text Normalization
@@ -24,7 +24,7 @@ Design and implement an AI-driven legal document analysis system that identifies
     - Base Streamlit Interface Logic
     - Visual Probability Matrix Display
 
-### ⚡ Milestone 2: Intelligent HUD & Deep Audit Interface
+### Milestone 2: Intelligent HUD & Deep Audit Interface
 - [x] **Data Intelligence Layer** (Kumar Gautam)
     - Legal Metadata Extraction (Parties, Jurisdiction, Dates)
     - OCR-Detection & Image-PDF Support Infrastructure
