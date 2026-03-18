@@ -14,3 +14,14 @@ Nuances to look for:
 STRICT REQUIREMENT: Output your analysis in the following JSON format ONLY:
 {{
     "primary_theme": "...",
+    "detailed_analysis": "...",
+    "legal_implications": ["...", "..."],
+    "is_ambiguous": true/false
+}}
+"""
+
+# Node 2: Risk Identifier
+RISK_IDENTIFIER_SYSTEM = """
+You are a Senior Compliance Auditor. Based on the previous analysis, identify specific risks.
+Assess each risk for severity (0-100).
+
