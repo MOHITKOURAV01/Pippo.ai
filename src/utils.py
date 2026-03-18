@@ -31,3 +31,14 @@ def parse_json_with_retry(text: str) -> Optional[Dict[str, Any]]:
                 return json.loads(match.group(1))
         except Exception as e:
             logger.error(f"Failed to parse JSON even with regex: {e}")
+            
+    return None
+
+def calculate_hybrid_score(llm_score: float, ml_score: float) -> float:
+    """
+    Calculates a weighted hybrid score.
+    Weights: 60% LLM, 40% ML.
+    """
+    return round((0.6 * llm_score) + (0.4 * ml_score), 2)
+
+def map_score_to_level(score: float) -> str:
