@@ -42,3 +42,9 @@ def calculate_hybrid_score(llm_score: float, ml_score: float) -> float:
     return round((0.6 * llm_score) + (0.4 * ml_score), 2)
 
 def map_score_to_level(score: float) -> str:
+    """ Maps numerical score (0-100) to qualitative risk level. """
+    if score >= 80: return "Critical"
+    if score >= 60: return "High"
+    if score >= 40: return "Medium"
+    if score >= 20: return "Low"
+    return "Minimal"
