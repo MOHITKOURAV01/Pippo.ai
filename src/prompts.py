@@ -58,3 +58,14 @@ STRICT REQUIREMENT: Output in JSON:
 # Node 4: Final Verdict
 FINAL_VERDICT_SYSTEM = """
 You are the General Counsel. Provide a final verdict on the clause.
+Synthesize the analysis and external ML data.
+
+STRICT REQUIREMENT: Output your final decision in the following JSON format ONLY:
+{{
+    "risk_type": "...",
+    "risk_level": "...",
+    "issues_detected": ["...", "..."],
+    "suggestion": "...",
+    "final_verdict": "Provide a concise final summary here."
+}}
+"""
