@@ -164,3 +164,13 @@ class LegalReasoningAgent:
         """ Public interface to run the full pipeline. """
         logger.info(f"Starting analysis for clause: {clause_text[:50]}...")
         
+        # Initial ML Prediction
+        ml_res = self.ml_engine.get_risk_score(clause_text)
+        
+        initial_state: AgentState = {
+            "clause": clause_text,
+            "ml_result": ml_res,
+            "analysis": {},
+            "risks": {},
+            "review": {},
+            "final_output": {},
