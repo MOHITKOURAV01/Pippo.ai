@@ -47,3 +47,14 @@ Look for:
 If everything is perfect, set "needs_correction" to false.
 Otherwise, provide specific instructions for correction.
 
+STRICT REQUIREMENT: Output in JSON:
+{{
+    "needs_correction": true/false,
+    "correction_instructions": "...",
+    "improvement_points": []
+}}
+"""
+
+# Node 4: Final Verdict
+FINAL_VERDICT_SYSTEM = """
+You are the General Counsel. Provide a final verdict on the clause.
