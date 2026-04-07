@@ -14,88 +14,105 @@ def generate_json_report(processed_data: List[Dict[str, Any]], metadata: Dict[st
         "findings": processed_data
     }
     return json.dumps(report, indent=4)
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, HRFlowable, Image as RLImage
+
 def generate_pdf_report(processed_data: List[Dict[str, Any]], metadata: Dict[str, Any], output_path: str):
-    '''Generates a professional PDF report containing the contract metadata and clause analysis.'''
-    doc = SimpleDocTemplate(output_path, pagesize=letter, rightMargin=40, leftMargin=40, topMargin=40, bottomMargin=18)
+    '''Generates a professional, branded PDF report for contract analysis.'''
+    doc = SimpleDocTemplate(output_path, pagesize=letter, rightMargin=50, leftMargin=50, topMargin=50, bottomMargin=30)
     styles = getSampleStyleSheet()
+    
+    # Custom Brand Colors
+    PIPPO_PINK = HexColor('#E91E63')
+    PIPPO_BLUE = HexColor('#58A6FF')
+    DARK_TEXT = HexColor('#1F2328')
+    GRAY_TEXT = HexColor('#484F58')
+    LINE_COLOR = HexColor('#D0D7DE')
+
+    # Custom Styles
     title_style = ParagraphStyle(
-        'TitleStyle',
-        parent=styles['Heading1'],
-        fontName='Helvetica-Bold',
-        fontSize=24,
-        textColor=HexColor('#000000'),
-        spaceAfter=20
+        'TitleStyle', parent=styles['Heading1'], fontName='Helvetica-Bold', fontSize=26,
+        textColor=PIPPO_PINK, spaceAfter=10, leading=32
+    )
+    subtitle_style = ParagraphStyle(
+        'SubStyle', parent=styles['Normal'], fontName='Helvetica', fontSize=10,
+        textColor=GRAY_TEXT, spaceAfter=20
     )
     h2_style = ParagraphStyle(
-        'H2Style',
-        parent=styles['Heading2'],
-        fontName='Helvetica-Bold',
-        fontSize=18,
-        spaceAfter=12,
-        spaceBefore=16
+        'H2Style', parent=styles['Heading2'], fontName='Helvetica-Bold', fontSize=16,
+        textColor=DARK_TEXT, spaceBefore=20, spaceAfter=12, borderPadding=5
     )
-    metadata_style = ParagraphStyle(
-        'MetaStyle',
-        parent=styles['Normal'],
-        fontName='Helvetica',
-        fontSize=12,
-        spaceAfter=6
+    meta_label_style = ParagraphStyle(
+        'MetaLabel', parent=styles['Normal'], fontName='Helvetica-Bold', fontSize=10,
+        textColor=PIPPO_BLUE, spaceAfter=2
     )
-    clause_title_style = ParagraphStyle(
-        'ClauseTitle',
-        parent=styles['Heading3'],
-        fontName='Helvetica-Bold',
-        fontSize=14,
-        spaceBefore=12,
-        spaceAfter=6
+    meta_val_style = ParagraphStyle(
+        'MetaVal', parent=styles['Normal'], fontName='Helvetica', fontSize=11,
+        textColor=DARK_TEXT, spaceAfter=10
+    )
+    clause_id_style = ParagraphStyle(
+        'ClauseID', parent=styles['Normal'], fontName='Helvetica-Bold', fontSize=9,
+        textColor=GRAY_TEXT, spaceBefore=15
     )
     clause_text_style = ParagraphStyle(
-        'ClauseText',
-        parent=styles['Normal'],
-        fontName='Helvetica',
-        fontSize=10,
-        textColor=HexColor('#333333'),
-        spaceAfter=10
+        'ClauseText', parent=styles['Normal'], fontName='Helvetica', fontSize=10,
+        textColor=DARK_TEXT, leading=14, spaceAfter=8
     )
     risk_high_style = ParagraphStyle(
-        'RiskHigh',
-        parent=styles['Normal'],
-        fontName='Helvetica-Bold',
-        fontSize=12,
-        textColor=HexColor('#FF3B30'),
-        spaceAfter=6
+        'RiskHigh', parent=styles['Normal'], fontName='Helvetica-Bold', fontSize=10,
+        textColor=HexColor('#FF3B30'), spaceAfter=5
     )
     risk_low_style = ParagraphStyle(
-        'RiskLow',
-        parent=styles['Normal'],
-        fontName='Helvetica-Bold',
-        fontSize=12,
-        textColor=HexColor('#34C759'),
-        spaceAfter=6
+        'RiskLow', parent=styles['Normal'], fontName='Helvetica-Bold', fontSize=10,
+        textColor=HexColor('#34C759'), spaceAfter=5
     )
+    footer_style = ParagraphStyle(
+        'Footer', parent=styles['Normal'], fontName='Helvetica-Bold', fontSize=8,
+        textColor=PIPPO_PINK, alignment=1, spaceBefore=30
+    )
+
     story = []
-    story.append(Paragraph("Contract Risk Audit Report", title_style))
-    story.append(Paragraph(f"Generated on: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}", metadata_style))
-    story.append(HRFlowable(width="100%", thickness=1, color=HexColor('#CCCCCC'), spaceBefore=10, spaceAfter=20))
-    story.append(Paragraph("Contract DNA (Metadata)", h2_style))
+    
+    # Header Section
+    story.append(Paragraph("Pippo AI: Legal Audit Report", title_style))
+    story.append(Paragraph(f"Generated on {datetime.now().strftime('%B %d, %Y at %H:%M:%S')}", subtitle_style))
+    story.append(HRFlowable(width="100%", thickness=2, color=PIPPO_PINK, spaceAfter=25))
+    
+    # Contract DNA
+    story.append(Paragraph("Contract DNA & Context", h2_style))
     for key, val in metadata.items():
         if isinstance(val, list):
-            display_val = ", ".join(val) if val else "NOT_FOUND"
+            display_val = ", ".join(val) if val else "NOT DETECTED"
         else:
-            display_val = val if val else "NOT_FOUND"
-        story.append(Paragraph(f"<b>{key}:</b> {display_val}", metadata_style))
-    story.append(Spacer(1, 20))
-    story.append(Paragraph("Detailed Clause Analysis", h2_style))
-    story.append(HRFlowable(width="100%", thickness=1, color=HexColor('#CCCCCC'), spaceBefore=5, spaceAfter=15))
-    for i, item in enumerate(processed_data):
-        story.append(Paragraph(f"Clause C-{i+1:03}", clause_title_style))
-        if item['is_risky']:
-            story.append(Paragraph(f"Status: HIGH RISK (Confidence: {item['confidence']:.2%})", risk_high_style))
-        else:
-            story.append(Paragraph(f"Status: LOW RISK (Confidence: {item['confidence']:.2%})", risk_low_style))
-        story.append(Paragraph(item['clause'], clause_text_style))
-        story.append(Spacer(1, 10))
-        story.append(HRFlowable(width="100%", thickness=0.5, color=HexColor('#EEEEEE'), spaceBefore=5, spaceAfter=10))
+            display_val = val if val else "NOT DETECTED"
+        
+        story.append(Paragraph(key.upper(), meta_label_style))
+        story.append(Paragraph(str(display_val), meta_val_style))
+    
+    story.append(Spacer(1, 15))
+    story.append(HRFlowable(width="100%", thickness=1, color=LINE_COLOR, spaceAfter=20))
+    
+    # Audit Findings
+    story.append(Paragraph("Detailed Risk Findings", h2_style))
+    
+    risky_clauses = [item for item in processed_data if item['is_risky']]
+    if not risky_clauses:
+        story.append(Paragraph("No high-risk clauses were detected in this document.", styles['Normal']))
+    else:
+        for i, item in enumerate(processed_data):
+            story.append(Paragraph(f"CLAUSE IDENTIFIER: C-{i+1:03}", clause_id_style))
+            
+            if item['is_risky']:
+                story.append(Paragraph(f"STATUS: HIGH RISK / ANOMALY DETECTED (Confidence: {item['confidence']:.0%})", risk_high_style))
+            else:
+                story.append(Paragraph(f"STATUS: NOMINAL / LOW RISK (Confidence: {item['confidence']:.0%})", risk_low_style))
+            
+            story.append(Paragraph(item['clause'], clause_text_style))
+            story.append(HRFlowable(width="100%", thickness=0.5, color=LINE_COLOR, spaceBefore=10, spaceAfter=10))
+
+    # Footer
+    story.append(Spacer(1, 40))
+    story.append(Paragraph("PIPPO AI // GAUTAM BHARADWAJ SYSTEMS // 2026 EDITION", footer_style))
+    
     doc.build(story)
 if __name__ == '__main__':
     sample_data = [{'clause': 'The company shall not be liable.', 'is_risky': True, 'confidence': 0.95}]

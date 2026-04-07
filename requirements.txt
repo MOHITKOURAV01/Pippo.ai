@@ -10,3 +10,6 @@ langchain
 langchain-openai
 langgraph
 reportlab
+joblib
+pytesseract
+pillow

@@ -2,6 +2,16 @@ import fitz  # PyMuPDF
 import os
 import re
 from typing import Any
+import pytesseract
+from PIL import Image
+import io
+
+def extract_text_via_ocr(page):
+    """Fallback OCR extraction using pytesseract for scanned pages."""
+    pix = page.get_pixmap()
+    img_data = pix.tobytes("png")
+    img = Image.open(io.BytesIO(img_data))
+    return pytesseract.image_to_string(img)
 
 def extract_text_from_pdf(pdf_path, start=0, end=None):
     """ Grabs text from PDF. end=None reads till the end. """
@@ -10,15 +20,20 @@ def extract_text_from_pdf(pdf_path, start=0, end=None):
         content = []
         
         last_page = end if end and end <= len(doc) else len(doc)
-        print(f"Reading: {pdf_path} (Pages {start+1} to {last_page})")
+        print(f"--- Processing: {pdf_path} (Pages {start+1} to {last_page}) ---")
         
         for i in range(start, last_page):
             page = doc.load_page(i)
-            page_text = page.get_text("text")
+            page_text = page.get_text("text").strip()
             
-            # Simple OCR detection: If no text but images exist
-            if not page_text.strip() and page.get_images():
-                print(f"Warning: Page {i+1} appears to be an image. OCR may be required.")
+            # Smart Fallback: If no text but page is not empty (images or scanned)
+            if not page_text:
+                print(f"--- [!] No text on Page {i+1}. Attempting OCR Scan... ---")
+                page_text = extract_text_via_ocr(page)
+                if page_text:
+                    print(f"--- [✓] OCR Success on Page {i+1} ---")
+                else:
+                    print(f"--- [X] OCR Failed on Page {i+1} ---")
             
             content.append(page_text)
             
@@ -31,31 +46,41 @@ def extract_text_from_pdf(pdf_path, start=0, end=None):
 def extract_legal_metadata(text):
     """
     Data Engineering: Extract key identifiers from raw text.
-    Kumar's Responsibility.
+    Improved version with better regex and more fields.
     """
     metadata: dict[str, Any] = {
         "Parties": [],
-        "Effective Date": None,
-        "Governing Law": None,
-        "Jurisdiction": None
+        "Effective Date": "N/A",
+        "Governing Law": "N/A",
+        "Jurisdiction": "N/A",
+        "Termination Notice": "N/A"
     }
     
-    # Regex Patterns for Legal Terms
+    # regex patterns for legal terms - improved for variety
     patterns = {
-        "Parties": r'(?:between|among)\s+([A-Z][a-z]+(?:\s+[A-Z][a-z]+)*(?:\s*(?:LLC|Inc|Corp|Ltd|and))?)',
-        "Effective Date": r'(?:Effective\s+Date|dated|this\s+day\s+of)\s+([A-Z][a-z]+\s+\d{1,2},?\s+\d{4})',
-        "Governing Law": r'governed\s+by\s+the\s+laws\s+of\s+([A-Z][a-z]+(?:\s+[A-Z][a-z]+)*)',
-        "Jurisdiction": r'exclusive\s+jurisdiction\s+of\s+([A-Z][a-z]+(?:\s+[A-Z][a-z]+)*)'
+        "Parties": r'(?:between|among|BY AND BETWEEN)\s+([A-Z0-9][\w\s&,.\-\(\)]+?)(?:\s*(?:LLC|Inc|Corp|Ltd|and|a [a-z ]+ corporation|a [a-z ]+ limited liability company))',
+        "Effective Date": r'(?:Effective\s+Date|dated|this\s+day\s+of|Date:)\s+([A-Z][a-z]+\s+\d{1,2},?\s+\d{4}|\d{1,2}\s+[A-Z][a-z]+\s+\d{4})',
+        "Governing Law": r'(?:governed\s+by|laws\s+of)\s+the\s+(?:laws|state)\s+of\s+([A-Z][a-z]+(?:\s+[A-Z][a-z]+)*)',
+        "Jurisdiction": r'(?:exclusive\s+)?jurisdiction\s+(?:of|in)\s+([A-Z][a-z]+(?:\s+[A-Z][a-z]+)*)',
+        "Termination Notice": r'(\d+\s+(?:day|month)s?)\s+prior\s+written\s+notice'
     }
     
     for key, pattern in patterns.items():
-        matches = list(re.findall(pattern, text))
-        if matches:
-            if key == "Parties":
-                # Ensure we only take first 2 and strip them
-                metadata[key] = [str(m).strip() for m in matches[:2]]
-            else:
-                metadata[key] = str(matches[0]).strip()
+        try:
+            matches = list(re.findall(pattern, text, re.IGNORECASE))
+            if matches:
+                if key == "Parties":
+                    # Clean up and deduplicate
+                    unique_parties = []
+                    for m in matches:
+                        p = str(m).strip().strip(',').strip()
+                        if p and p not in unique_parties and len(p) > 2:
+                            unique_parties.append(p)
+                    metadata[key] = unique_parties[:2]
+                else:
+                    metadata[key] = str(matches[0]).strip()
+        except Exception:
+            pass
                 
     return metadata
 

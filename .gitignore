@@ -6,3 +6,8 @@ models/
 .DS_Store
 *.db
 *.pdf
+.env
+.gemini/
+brain/
+data/users.json
+
