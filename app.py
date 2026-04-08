@@ -151,7 +151,7 @@ st.markdown("""
         margin: 0;
     }
     .nav-brand { display: flex; align-items: center; gap: var(--space-sm); }
-    .nav-brand h1 {
+    .nav-brand .pippo-logo {
         font-family: 'Cabin Sketch', cursive; font-weight: 700;
         font-size: clamp(1.8rem, 4vw, 2.6rem); color: #FFF !important; margin: 0;
         text-shadow: 2px 2px 0px rgba(0,0,0,0.1); line-height: 1;
@@ -371,6 +371,7 @@ def get_brand_image_b64():
 col_left, col_right = st.columns([1.2, 1], gap="large")
 
 with col_left:
+    st.markdown('<div style="margin-top: 8vh;"></div>', unsafe_allow_html=True)
     st.markdown("""
         <div class="fade-in">
             <div class="h-title">
@@ -390,14 +391,13 @@ with col_left:
     st.markdown('<span class="label-mono">Uplink Terminal</span>', unsafe_allow_html=True)
     uploaded_file = st.file_uploader("Upload a contract PDF for analysis", type="pdf", label_visibility="collapsed")
     if uploaded_file:
-        st.markdown('<div class="risk-tag risk-low" style="text-align:center; margin-top: 8px;">✓ UPLINK SUCCESSFUL</div>', unsafe_allow_html=True)
+        st.markdown('<div class="risk-tag risk-low" style="text-align:center; margin-top: 25px; clear: both; display: block;">✓ UPLINK SUCCESSFUL</div>', unsafe_allow_html=True)
 
 
 with col_right:
-    if not uploaded_file and not st.session_state.analysis_complete:
-        img_b64 = get_brand_image_b64()
-        if img_b64:
-            st.markdown(f'<div style="text-align:center;"><img src="data:image/png;base64,{img_b64}" style="max-width:100%; width:min(750px, 100%); height:auto; filter:drop-shadow(0 0 40px rgba(88,166,255,0.08));"></div>', unsafe_allow_html=True)
+    img_b64 = get_brand_image_b64()
+    if img_b64:
+        st.markdown(f'<div style="text-align:center; margin-top: 12vh;"><img src="data:image/png;base64,{img_b64}" style="max-width:100%; width:min(750px, 100%); height:auto; filter:drop-shadow(0 0 40px rgba(88,166,255,0.08));"></div>', unsafe_allow_html=True)
 
 # ─────────────────────────────────────────────────────────────
 # ANALYSIS PIPELINE
@@ -527,10 +527,7 @@ st.markdown("""
 
 # Build auth segment for navbar
 if is_guest:
-    auth_segment = f"""
-        <a href="?action=login" target="_self" class="nav-btn">LOGIN</a>
-        <a href="?action=signup" target="_self" class="nav-btn">SIGN UP</a>
-    """
+    auth_segment = ""
 else:
     auth_segment = f"""
         <div class="nav-user">
@@ -543,6 +540,6 @@ else:
 
 # Render combined bar (Footer + Navbar)
 footer_html = f'<div class="pippo-footer"><span class="label-mono">PIPPO AI</span><span class="label-mono" style="opacity:0.2;">SYSTEM NOMINAL // V2.1.0</span></div>'
-navbar_html = f'<div class="pippo-navbar"><div class="nav-brand"><h1>Pippo</h1><span class="badge">AI LEGAL</span></div><div class="nav-right"><div class="nav-status"><span class="status-dot" style="background:{status_color}"></span><span>{auth_label}</span></div>{auth_segment}</div></div>'
+navbar_html = f'<div class="pippo-navbar"><div class="nav-brand"><div class="pippo-logo">Pippo</div><span class="badge">AI LEGAL</span></div><div class="nav-right"><div class="nav-status"><span class="status-dot" style="background:{status_color}"></span><span>{auth_label}</span></div>{auth_segment}</div></div>'
 
 st.markdown(f'<div id="pippo-fixed-bottom-bar">{footer_html}{navbar_html}</div>', unsafe_allow_html=True)
