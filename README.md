@@ -1,4 +1,4 @@
-# ⚖️ Pippo AI: Intelligent Legal Partner
+# Pippo AI: Intelligent Legal Partner
 
 **Bharat's Precision. Global Ambition. Intelligent World.**
 
@@ -9,7 +9,7 @@ Pippo AI is a next-generation, agentic intelligence engine designed to navigate 
 
 ---
 
-## ⚡ Core Intelligence Architecture
+## Core Intelligence Architecture
 
 Pippo AI is built on a "Deep Audit" philosophy, moving beyond simple keyword matching to understanding the fundamental intent of legal prose.
 
@@ -17,24 +17,24 @@ Pippo AI is built on a "Deep Audit" philosophy, moving beyond simple keyword mat
 - **Machine Learning Layer:** A robust `RandomForest` classifier provides a probabilistic baseline for risk, trained on thousands of curated legal clauses.
 - **Hybrid Scoring:** Combines data-driven ML models with logic-driven LLM agents to produce a unified "Contract DNA" risk profile.
 
-## 💎 Features & Capabilities
+## Features and Capabilities
 
-### 🌑 HUD-Inspired Interface
+### HUD-Inspired Interface
 Experience a premium, high-contrast dark theme designed for focus. Featuring glassmorphism, dynamic bento-cards, and real-time scanning feedback.
 
-### 🔍 Multidimensional Extraction
+### Multidimensional Extraction
 - **Legal Metadata:** Automatic detection of Parties, Effective Dates, Jurisdiction, and Governing Laws.
 - **Smart OCR:** Intelligent fallback to `Tesseract OCR` for scanned documents and image-heavy PDFs.
 - **Clause Segmentation:** Proprietary regex-based splitting that preserves legal context.
 
-### 📊 Risk Analytics & Export
+### Risk Analytics and Export
 - **Bento Dashboard:** Visual representations of risk ratios using `Plotly`.
 - **Professional Reports:** Export findings into branded, ready-to-share PDF or JSON audits.
 - **Audit Logs:** local persistence using `SQLite` for tracking historical document analysis.
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ### 1. Local Setup
 Ensure you have Python 3.9+ installed and run the following in your terminal:
@@ -60,7 +60,7 @@ streamlit run app.py
 
 ---
 
-## 🛠️ Built With
+## Built With
 
 - **Backend:** Python 3.9, OpenAI, LangChain, LangGraph
 - **Frontend:** Streamlit, CSS3 (Glassmorphism), Plotly
@@ -69,7 +69,7 @@ streamlit run app.py
 
 ---
 
-## 🤝 The Team
+## The Team
 
 Pippo AI is the result of focused engineering and design by:
 
