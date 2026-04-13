@@ -6,14 +6,14 @@ This document describes the flow of information and processing steps in the Inte
 This diagram shows how the user interacts with the system and how the background processes handle the data.
 
 ```mermaid
-%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#1f2937', 'primaryTextColor': '#fff', 'primaryBorderColor': '#3b82f6', 'lineColor': '#60a5fa', 'secondaryColor': '#111827', 'tertiaryColor': '#1f2937'}}}%%
-graph TD
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#1f2937', 'primaryTextColor': '#fff', 'primaryBorderColor': '#3b82f6', 'lineColor': '#60a5fa'}}}%%
+flowchart LR
     User([User/Legal Professional]) -->|Uploads PDF| UI[Streamlit Interface]
     UI -->|Sends PDF| Extractor[PDF Text Extractor]
     Extractor -->|Raw Text| Splitter[Clause Splitter]
-    Splitter -->|Individual Clauses| Preprocessor[Text Preprocessor]
-    Preprocessor -->|Cleaned Text| Classifier[Risk Classifier Model]
-    Classifier -->|Predicted Risk Levels| UI
+    Splitter -->|Clauses| Preprocessor[Text Preprocessor]
+    Preprocessor -->|Clean Data| Classifier[ML Classifier]
+    Classifier -->|Risk Levels| UI
     UI -->|Displays Results| User
 ```
 
@@ -55,44 +55,25 @@ flowchart LR
 This map outlines the specialized roles for Phase 1 and Phase 2.
 
 ```mermaid
-%%{init: {
-  'theme': 'base',
-  'themeVariables': {
-    'primaryColor': '#FF6B00',
-    'textColor': '#000000',
-    'mainBkg': '#FFFFFF',
-    'nodeTextColor': '#000000',
-    'cScale0': '#FF0000',
-    'cScale1': '#FFFFFF',
-    'cScale2': '#FFFFFF',
-    'cScale3': '#FFFFFF',
-    'cScaleLabel0': '#FFFFFF',
-    'cScaleLabel1': '#000000',
-    'cScaleLabel2': '#000000',
-    'cScaleLabel3': '#000000'
-  }
-}}%%
-mindmap
-  root((fa:fa-project-diagram AI-ML))
-    ::icon(fa fa-users)
-    **Kumar Gautam**
-      ::icon(fa fa-desktop)
-      Data Engineering & OCR
-      Legal Metadata Extraction
-      Streamlit HUD-Logic & Dashboard
-      Automated Audit Integration
-    **Mohit Kourav**
-      ::icon(fa fa-brain)
-      Intelligence Logic Microservices
-      Graph-based Reasoning Architecture
-      Statistical Risk Variance Mapping
-      Validation Verification Framework
-    **Karan Thakur**
-      ::icon(fa fa-file-export)
-      Multiformat Report Generation Engine
-      Relational Persistence Layers (SQLite)
-      Frontend-Backend State Middleware
-      High-Concurrency Batch Orchestration
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#1f2937', 'primaryTextColor': '#fff', 'primaryBorderColor': '#f59e0b', 'lineColor': '#fbbf24'}}}%%
+flowchart LR
+    subgraph Team[Project Contributors]
+    KG[Kumar Gautam]
+    MK[Mohit Kourav]
+    KT[Karan Thakur]
+    end
+
+    KG --- KG1[Data Engineering & OCR]
+    KG --- KG2[Metadata Extraction]
+    KG --- KG3[HUD UX & Dashboard]
+
+    MK --- MK1[Agentic Microservices]
+    MK --- MK2[Graph Reasoning]
+    MK --- MK3[Statistical Mapping]
+
+    KT --- KT1[Report Generation]
+    KT --- KT2[SQLite Persistence]
+    KT --- KT3[State Middleware]
 ```
 
 ## 5. System Themes & Styling
