@@ -2,19 +2,6 @@
 
 import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  ShieldAlert, 
-  ShieldCheck, 
-  FileText, 
-  Upload, 
-  Activity, 
-  BarChart3, 
-  ArrowRight,
-  Loader2,
-  CheckCircle2,
-  AlertTriangle,
-  Download
-} from 'lucide-react';
 
 interface Metadata {
   parties?: string;
@@ -87,316 +74,139 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen">
-      {/* Navbar */}
-      <nav className="navbar">
-        <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <motion.a 
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            href="/" 
-            className="logo"
-          >
-            Pippo <span style={{ color: 'var(--brand-pink)' }}>AI</span>
-          </motion.a>
-          <motion.div 
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            style={{ display: 'flex', gap: '20px', fontSize: '0.7rem', fontFamily: 'JetBrains Mono', alignItems: 'center' }}
-          >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <div style={{ width: '6px', height: '6px', background: 'var(--brand-green)', borderRadius: '50%', boxShadow: '0 0 10px var(--brand-green)' }}></div>
-              <span style={{ color: 'var(--brand-green)' }}>SYSTEM ONLINE</span>
+    <main className="main-container">
+      {/* ─────────────────────────────────────────────────────────────
+          MAIN LAYOUT (SAME AS ORIGINAL app.py)
+      ───────────────────────────────────────────────────────────── */}
+      <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '48px' }}>
+        
+        {/* LEFT COLUMN */}
+        <div>
+          <div style={{ marginTop: '8vh' }}></div>
+          <div className="fade-in">
+            <div className="h-title">
+                <span style={{ color: '#58A6FF', textShadow: '0 0 40px rgba(88,166,255,0.2)' }}>Bharat&apos;s Precision.</span><br />
+                <span style={{ color: '#E6EDF3' }}>Global Ambition.</span><br />
+                <span style={{ color: '#E91E63', textShadow: '0 0 30px rgba(233,30,99,0.2)' }}>Intelligent</span>
+                <span style={{ color: '#E91E63', fontWeight: 800 }}> World.</span>
             </div>
-            <span style={{ opacity: 0.3 }}>|</span>
-            <span style={{ opacity: 0.5 }}>V2.5.0-PRO</span>
-          </motion.div>
-        </div>
-      </nav>
+          </div>
+          <p className="hero-subtitle fade-in">
+            Architecture matters. While regular trackers skim the surface, Pippo AI is engineered
+            for the deep nuances of Bharat&apos;s legal landscape. 🇮🇳
+          </p>
 
-      {/* Hero Section */}
-      <section className="container" style={{ marginTop: '80px', marginBottom: '80px' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1.2fr) 1fr', gap: '60px', alignItems: 'center' }}>
-          <div>
-            <motion.span 
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="label-mono"
-            >
-              Bharat's Precision. Global Ambition.
-            </motion.span>
-            <motion.h1 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="h-title"
-            >
-              <span style={{ color: 'var(--brand-blue)', textShadow: '0 0 40px rgba(88,166,255,0.2)' }}>Contract DNA</span><br />
-              <span>Intelligence for</span><br />
-              <span style={{ color: '#E91E63' }}>Legal Teams.</span>
-            </motion.h1>
-            <motion.p 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              style={{ color: 'var(--text-dim)', fontSize: '1.1rem', maxWidth: '600px', marginBottom: '40px' }}
-            >
-              Beyond basic trackers. Pippo AI is engineered for the deep nuances of the Indian legal landscape. 
-              Upload your agreement and let our agentic engine de-risk your business in seconds. 🇮🇳
-            </motion.p>
-
-            {/* Upload Zone */}
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.3 }}
-              className="upload-zone"
-              onClick={() => !loading && fileInputRef.current?.click()}
-              style={{ position: 'relative', overflow: 'hidden' }}
-            >
-              <input 
-                type="file" 
-                ref={fileInputRef} 
-                onChange={handleFileChange} 
-                accept=".pdf" 
-                style={{ display: 'none' }} 
-              />
-              
-              <AnimatePresence mode="wait">
-                {loading ? (
+          <span className="label-mono">Uplink Terminal</span>
+          <div 
+            className="upload-zone"
+            onClick={() => fileInputRef.current?.click()}
+          >
+            <input 
+              type="file" 
+              ref={fileInputRef} 
+              onChange={handleFileChange} 
+              accept=".pdf" 
+              style={{ display: 'none' }} 
+            />
+            {loading ? (
+              <div style={{ padding: '20px' }}>
+                <div className="label-mono" style={{ marginBottom: '10px' }}>Analyzing...</div>
+                <div style={{ width: '100%', height: '4px', background: 'rgba(255,255,255,0.1)', borderRadius: '2px', overflow: 'hidden' }}>
                   <motion.div 
-                    key="loading"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    style={{ padding: '20px' }}
-                  >
-                    <Loader2 className="animate-spin" size={40} style={{ color: 'var(--brand-blue)', margin: '0 auto 20px' }} />
-                    <div className="label-mono" style={{ marginBottom: '10px' }}>Sequencing Contract Nucleotides...</div>
-                    <div style={{ width: '100%', height: '4px', background: 'rgba(255,255,255,0.05)', borderRadius: '2px', overflow: 'hidden' }}>
-                      <motion.div 
-                        initial={{ x: '-100%' }}
-                        animate={{ x: '100%' }}
-                        transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
-                        style={{ width: '40%', height: '100%', background: 'var(--brand-blue)' }}
-                      />
-                    </div>
-                  </motion.div>
-                ) : (
-                  <motion.div 
-                    key="idle"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                  >
-                    <div style={{ 
-                      width: '64px', 
-                      height: '64px', 
-                      background: 'rgba(88,166,255,0.1)', 
-                      borderRadius: '16px', 
-                      display: 'flex', 
-                      alignItems: 'center', 
-                      justifyContent: 'center',
-                      margin: '0 auto 20px',
-                      border: '1px solid rgba(88,166,255,0.2)'
-                    }}>
-                      <Upload size={32} style={{ color: 'var(--brand-blue)' }} />
-                    </div>
-                    <div className="label-mono">Uplink Terminal</div>
-                    <p style={{ opacity: 0.4, fontSize: '0.85rem' }}>Drag & Drop PDF or Click to Explore</p>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </motion.div>
-            
-            {error && (
-              <motion.div 
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                style={{ color: 'var(--brand-red)', marginTop: '20px', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '8px' }}
-              >
-                <AlertTriangle size={16} /> {error}
-              </motion.div>
+                    initial={{ x: '-100%' }}
+                    animate={{ x: '100%' }}
+                    transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
+                    style={{ width: '40%', height: '100%', background: 'var(--brand-blue)' }}
+                  />
+                </div>
+              </div>
+            ) : file ? (
+                <div className="risk-tag risk-low" style={{ margin: '0 auto' }}>✓ UPLINK SUCCESSFUL</div>
+            ) : (
+                <p style={{ opacity: 0.5 }}>Upload a contract PDF for analysis</p>
             )}
           </div>
-
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
-            animate={{ opacity: 1, scale: 1, rotate: 0 }}
-            transition={{ duration: 1, type: "spring" }}
-            style={{ position: 'relative' }}
-          >
-            <div style={{ 
-              width: '120%', 
-              aspectRatio: '1', 
-              background: 'radial-gradient(circle, rgba(88,166,255,0.1) 0%, transparent 70%)',
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-              zIndex: -1
-            }}></div>
-            <img 
-              src="/contract_shield.png" 
-              alt="Pippo AI Shield" 
-              style={{ width: '100%', filter: 'drop-shadow(0 0 50px rgba(88,166,255,0.15))' }}
-            />
-          </motion.div>
+          {error && <p style={{ color: 'var(--brand-red)', marginTop: '10px' }}>{error}</p>}
         </div>
-      </section>
 
-      {/* Results Section */}
-      <AnimatePresence>
-        {results && (
-          <motion.section 
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="container" 
-            style={{ marginBottom: '100px' }}
-          >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '30px' }}>
-              <Activity size={20} style={{ color: 'var(--brand-blue)' }} />
-              <span className="label-mono">Analytical Report: {results.filename}</span>
+        {/* RIGHT COLUMN (IMAGE) */}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <img 
+            src="/contract_shield.png" 
+            alt="Pippo Brand" 
+            style={{ maxWidth:'100%', width:'min(750px, 100%)', height:'auto', filter:'drop-shadow(0 0 40px rgba(88,166,255,0.08))', marginTop: '12vh' }}
+          />
+        </div>
+      </div>
+
+      {/* ─────────────────────────────────────────────────────────────
+          ANALYSIS RESULTS (SAME AS ORIGINAL app.py)
+      ───────────────────────────────────────────────────────────── */}
+      {results && (
+        <div className="fade-in" style={{ marginTop: '40px' }}>
+            <span className="label-mono">Contract DNA</span>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px', marginBottom: '32px' }}>
+                {Object.entries(results.metadata).map(([key, value]) => (
+                    <div key={key} className="bento-card">
+                        <span className="label-mono" style={{ fontSize: '0.5rem' }}>{key.replace(/_/g, ' ')}</span>
+                        <p style={{ fontSize: '0.85rem', fontWeight: 600, color: '#58A6FF' }}>{value as string}</p>
+                    </div>
+                ))}
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '20px', marginBottom: '40px' }}>
-              {Object.entries(results.metadata).map(([key, value], idx) => (
-                <motion.div 
-                  key={key} 
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: idx * 0.05 }}
-                  className="bento-card"
-                >
-                  <span className="label-mono" style={{ fontSize: '0.5rem', opacity: 0.6 }}>{key.replace(/_/g, ' ')}</span>
-                  <p style={{ fontWeight: 600, color: 'var(--brand-blue)', fontSize: '0.9rem', marginTop: '4px' }}>
-                    {value && value !== 'N/A' ? value : 'Not Found'}
-                  </p>
-                </motion.div>
-              ))}
+            <span className="label-mono">Risk Analytics</span>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', marginBottom: '32px' }}>
+                <div className="glass-container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '300px' }}>
+                    {/* Placeholder for Donut Chart which was plotly in original */}
+                    <div style={{ textAlign: 'center' }}>
+                        <div className="stat-value">{results.summary.risky_clauses}</div>
+                        <div className="stat-label">Risky Clauses</div>
+                    </div>
+                </div>
+                <div className="glass-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                    <div className="stat-value">{results.summary.safe_ratio}%</div>
+                    <p className="stat-label">SAFE RATIO</p>
+                </div>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '30px', marginBottom: '60px' }}>
-              <div className="glass-container" style={{ textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
-                <div style={{ position: 'relative', zIndex: 1 }}>
-                  <div className="stat-value">{results.summary.safe_ratio}%</div>
-                  <div className="stat-label">SAFE RATIO</div>
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', marginTop: '15px' }}>
-                    <CheckCircle2 size={16} style={{ color: 'var(--brand-green)' }} />
-                    <span style={{ fontSize: '0.75rem', opacity: 0.6 }}>{results.summary.total_clauses - results.summary.risky_clauses} Clean Clauses</span>
-                  </div>
-                </div>
-                <div style={{ position: 'absolute', right: '-20px', bottom: '-20px', opacity: 0.05 }}>
-                  <ShieldCheck size={160} />
-                </div>
-              </div>
-
-              <div className="glass-container" style={{ textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
-                <div style={{ position: 'relative', zIndex: 1 }}>
-                  <div className="stat-value" style={{ color: 'var(--brand-red)' }}>{results.summary.risky_clauses}</div>
-                  <div className="stat-label">RISKY NODES</div>
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', marginTop: '15px' }}>
-                    <ShieldAlert size={16} style={{ color: 'var(--brand-red)' }} />
-                    <span style={{ fontSize: '0.75rem', opacity: 0.6 }}>Critical Review Required</span>
-                  </div>
-                </div>
-                <div style={{ position: 'absolute', right: '-20px', bottom: '-20px', opacity: 0.05 }}>
-                  <AlertTriangle size={160} />
-                </div>
-              </div>
-            </div>
-
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '20px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                <BarChart3 size={20} style={{ color: 'var(--brand-blue)' }} />
-                <span className="label-mono">Clause Registry Audit</span>
-              </div>
-              <button 
-                className="label-mono" 
-                style={{ 
-                  background: 'rgba(88,166,255,0.1)', 
-                  border: '1px solid rgba(88,166,255,0.2)', 
-                  padding: '8px 16px', 
-                  borderRadius: '4px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  cursor: 'pointer',
-                  color: 'var(--brand-blue)'
-                }}
-              >
-                <Download size={14} /> EXPORT PDF
-              </button>
-            </div>
-
+            <span className="label-mono">Clause Audit</span>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-              {results.analysis.map((item, i) => (
-                <motion.div 
-                  key={i}
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.03 }}
-                  className="glass-container" 
-                  style={{ borderRadius: '16px', padding: '24px' }}
-                >
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                      <span style={{ 
-                        padding: '6px 14px', 
-                        borderRadius: '50px', 
-                        fontSize: '0.6rem', 
-                        fontWeight: 800,
-                        background: item.is_risky ? 'rgba(255,107,107,0.1)' : 'rgba(81,207,102,0.1)',
-                        color: item.is_risky ? 'var(--brand-red)' : 'var(--brand-green)',
-                        border: `1px solid ${item.is_risky ? 'rgba(255,107,107,0.2)' : 'rgba(81,207,102,0.2)'}`,
-                        letterSpacing: '0.05rem'
-                      }}>
-                        {item.is_risky ? 'CRITICAL RISK' : 'SECURE SEGMENT'}
-                      </span>
-                      <span className="label-mono" style={{ fontSize: '0.55rem', opacity: 0.4 }}>INDEX C-{i+1}</span>
-                    </div>
-                    <div style={{ textAlign: 'right' }}>
-                      <div className="label-mono" style={{ fontSize: '0.55rem', opacity: 0.5 }}>Confidence</div>
-                      <div style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--brand-blue)' }}>{Math.round(item.confidence * 100)}%</div>
-                    </div>
-                  </div>
-                  <p style={{ color: '#E1E4E8', fontSize: '0.95rem', lineHeight: '1.7', whiteSpace: 'pre-wrap' }}>{item.clause}</p>
-                </motion.div>
-              ))}
+                {results.analysis.map((item, i) => {
+                    const riskClass = item.is_risky ? "risk-high" : "risk-low";
+                    return (
+                        <div key={i} className="glass-container">
+                            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                <span className={`risk-tag ${riskClass}`}>C-{i+1}</span>
+                                <span className="label-mono">{Math.round(item.confidence * 100)}% CONF</span>
+                            </div>
+                            <div style={{ marginTop:'10px', color:'#C9D1D9' }}>{item.clause}</div>
+                        </div>
+                    );
+                })}
             </div>
-          </motion.section>
-        )}
-      </AnimatePresence>
-
-      {/* Footer */}
-      <footer className="container" style={{ padding: '80px 0 40px', borderTop: 'var(--border-glass)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <div>
-          <div className="logo" style={{ fontSize: '1.2rem', marginBottom: '10px' }}>Pippo <span style={{ color: 'var(--brand-pink)' }}>AI</span></div>
-          <p style={{ fontSize: '0.7rem', opacity: 0.3, letterSpacing: '0.05rem' }}>LEGAL TECHNOLOGY FOR THE BHARAT ERA. 🇮🇳</p>
         </div>
-        <div style={{ display: 'flex', gap: '40px' }}>
-          <div>
-            <span className="label-mono" style={{ fontSize: '0.55rem', opacity: 0.4, marginBottom: '10px', display: 'block' }}>RESOURCES</span>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '0.75rem', opacity: 0.6 }}>
-              <a href="#">API Documentation</a>
-              <a href="#">Security Audit</a>
-            </div>
-          </div>
-          <div style={{ textAlign: 'right' }}>
-            <span className="label-mono" style={{ fontSize: '0.55rem', opacity: 0.4, marginBottom: '10px', display: 'block' }}>TERMINAL</span>
-            <div style={{ fontSize: '0.75rem', color: 'var(--brand-blue)', fontWeight: 600 }}>ID: PIPPO-77-X</div>
-          </div>
-        </div>
-      </footer>
+      )}
 
-      <style jsx global>{`
-        @keyframes spin {
-          to { transform: rotate(360deg); }
-        }
-        .animate-spin {
-          animation: spin 1s linear infinite;
-        }
-      `}</style>
+      {/* ─────────────────────────────────────────────────────────────
+          FOOTER & NAVBAR (SAME AS ORIGINAL app.py)
+      ───────────────────────────────────────────────────────────── */}
+      <div className="pippo-footer">
+          <span className="label-mono">PIPPO AI</span>
+          <span className="label-mono" style={{ opacity: 0.2 }}>SYSTEM NOMINAL // V2.1.0</span>
+      </div>
+
+      <div className="pippo-navbar">
+          <div className="nav-brand">
+              <div className="pippo-logo">Pippo</div>
+              <span className="badge">AI LEGAL</span>
+          </div>
+          <div className="nav-right">
+              <div className="nav-status">
+                  <span className="status-dot"></span>
+                  <span>SECURE ACCESS</span>
+              </div>
+          </div>
+      </div>
     </main>
   );
 }

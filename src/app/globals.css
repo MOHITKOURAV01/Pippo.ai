@@ -1,154 +1,187 @@
 @import url('https://fonts.googleapis.com/css2?family=Cabin+Sketch:wght@400;700&family=Inter:wght@300;400;500;600;700;800&family=Geist:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
 :root {
-  /* Colors */
-  --brand-pink: #FF8C00;
-  --brand-pink-dark: #E67E22;
-  --brand-blue: #58A6FF;
-  --brand-green: #51CF66;
-  --brand-red: #FF6B6B;
-  --bg-black: #050505;
-  --bg-glass: rgba(255, 255, 255, 0.03);
-  --bg-card: rgba(255, 255, 255, 0.05);
-  --text-main: #E6EDF3;
-  --text-dim: #8B949E;
-  --text-muted: rgba(255, 255, 255, 0.4);
-  
-  /* Spacing */
-  --space-xs: 8px;
-  --space-sm: 16px;
-  --space-md: 24px;
-  --space-lg: 32px;
-  --space-xl: 48px;
-  --radius-md: 12px;
-  --radius-lg: 24px;
-  --border-glass: 1px solid rgba(255, 255, 255, 0.08);
+    /* Colors */
+    --brand-pink: #FF8C00;
+    --brand-pink-dark: #E67E22;
+    --brand-blue: #58A6FF;
+    --brand-green: #51CF66;
+    --brand-red: #FF6B6B;
+    --bg-black: #000000;
+    --bg-glass: rgba(255, 255, 255, 0.03);
+    --bg-card: rgba(255, 255, 255, 0.05);
+    --text-main: #E6EDF3;
+    --text-dim: #8B949E;
+    --text-muted: rgba(255, 255, 255, 0.4);
+    
+    /* Spacing System */
+    --space-xs: 8px;
+    --space-sm: 16px;
+    --space-md: 24px;
+    --space-lg: 32px;
+    --space-xl: 48px;
+    --space-2xl: 64px;
+    
+    /* Layout */
+    --max-width: 1400px;
+    --nav-height: 72px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    --border-glass: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-  background: var(--bg-black);
-  background-image:
-    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(88,166,255,0.08), transparent),
-    url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-  color: var(--text-main);
-  font-family: 'Geist', 'Inter', sans-serif;
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
+    background: var(--bg-black) !important;
+    background-image:
+        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(88,166,255,0.06), transparent),
+        url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E") !important;
+    color: var(--text-main) !important;
+    font-family: 'Geist', 'Inter', sans-serif !important;
+    overflow-x: hidden !important;
+    padding-bottom: calc(var(--nav-height) + var(--space-xl)) !important;
 }
 
-.container {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0 var(--space-md);
+.main-container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: var(--space-lg) var(--space-md);
 }
 
-/* Typography */
+/* ── Navbar Layout ────────────────────────── */
+.pippo-navbar {
+    background: linear-gradient(135deg, var(--brand-pink) 0%, var(--brand-pink-dark) 100%);
+    background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.05) 0px, rgba(255,255,255,0.05) 1.5px, transparent 1.5px, transparent 12px);
+    width: 100%;
+    height: var(--nav-height);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 clamp(var(--space-sm), 5vw, var(--space-2xl));
+    border-top: 3px solid rgba(0,0,0,0.15);
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 99999;
+    box-shadow: 0 -8px 32px rgba(233,30,99,0.2);
+    margin: 0;
+}
+
+.nav-brand { display: flex; align-items: center; gap: var(--space-sm); }
+.nav-brand .pippo-logo {
+    font-family: 'Cabin Sketch', cursive; font-weight: 700;
+    font-size: clamp(1.8rem, 4vw, 2.6rem); color: #FFF !important; margin: 0;
+    text-shadow: 2px 2px 0px rgba(0,0,0,0.1); line-height: 1;
+}
+.nav-brand .badge {
+    background: rgba(255,255,255,0.15); backdrop-filter: blur(8px);
+    padding: 4px 12px; border-radius: 20px;
+    font-size: 0.6rem; font-weight: 700; color: #FFF;
+    font-family: 'JetBrains Mono', monospace;
+    border: 1px solid rgba(255,255,255,0.2);
+    letter-spacing: 0.1rem;
+}
+
+.nav-right { display: flex; align-items: center; gap: var(--space-md); }
+.nav-status {
+    background: rgba(255,255,255,0.12); padding: 6px 14px; border-radius: 50px;
+    display: flex; align-items: center; gap: var(--space-xs);
+    font-size: 0.65rem; font-weight: 700; color: #FFF; font-family: 'Inter';
+    border: 1px solid rgba(255,255,255,0.15);
+}
+.status-dot { width: 7px; height: 7px; background: var(--brand-green); border-radius: 50%; box-shadow: 0 0 8px var(--brand-green); }
+
+/* ── Typography & Headings ────────────────── */
 .h-title {
-  font-family: 'Cabin Sketch', cursive;
-  font-size: clamp(2.5rem, 8vw, 4.5rem);
-  font-weight: 700;
-  line-height: 0.95;
-  letter-spacing: -2px;
-  margin-bottom: var(--space-sm);
+    font-family: 'Cabin Sketch', cursive;
+    font-size: clamp(2.2rem, 8vw, 4.5rem);
+    font-weight: 700; line-height: 0.95;
+    letter-spacing: -2px; margin-bottom: var(--space-sm);
 }
-
 .label-mono {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.65rem;
-  text-transform: uppercase;
-  letter-spacing: 0.18rem;
-  color: var(--brand-blue);
-  margin-bottom: var(--space-xs);
-  display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem; text-transform: uppercase;
+    letter-spacing: 0.18rem; color: var(--brand-blue);
+    margin-bottom: var(--space-xs); display: block;
+}
+.hero-subtitle {
+    font-family: 'Inter'; font-size: clamp(0.9rem, 1.5vw, 1.05rem);
+    color: var(--text-muted); margin-bottom: var(--space-lg);
+    max-width: 580px; line-height: 1.6;
 }
 
-/* Glass Components */
+/* ── Standardized Components ───────────────── */
 .glass-container {
-  background: var(--bg-glass);
-  border: var(--border-glass);
-  border-radius: var(--radius-lg);
-  padding: var(--space-lg);
-  backdrop-filter: blur(12px);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: var(--bg-glass);
+    border: var(--border-glass);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    backdrop-filter: blur(12px);
+    margin-bottom: var(--space-sm);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .bento-card {
-  background: var(--bg-card);
-  border: var(--border-glass);
-  border-radius: var(--radius-md);
-  padding: var(--space-md);
-  height: 100%;
-  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    background: var(--bg-card);
+    border: var(--border-glass);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
-
 .bento-card:hover {
-  border-color: rgba(88,166,255,0.25);
-  background: rgba(88,166,255,0.04);
-  transform: translateY(-2px);
-  box-shadow: 0 12px 24px rgba(0,0,0,0.4);
+    border-color: rgba(88,166,255,0.25);
+    background: rgba(88,166,255,0.04);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.4);
 }
 
-/* Navbar */
-.navbar {
-  height: 72px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: var(--border-glass);
-  background: rgba(5, 5, 5, 0.8);
-  backdrop-filter: blur(10px);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-
-.logo {
-  font-family: 'Cabin Sketch', cursive;
-  font-size: 1.8rem;
-  color: #FFF;
-  text-decoration: none;
-}
-
-/* Stats */
+/* ── Dashboard Metrics ────────────────────── */
 .stat-value {
-  font-size: clamp(2rem, 5vw, 3rem);
-  font-weight: 800;
-  color: var(--brand-blue);
+    font-family: 'Geist', sans-serif; 
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 800; margin: var(--space-xs) 0; line-height: 1;
 }
-
 .stat-label {
-  color: var(--text-dim);
-  font-size: 0.75rem;
-  font-family: 'JetBrains Mono', monospace;
+    color: var(--text-dim); font-size: 0.75rem;
+    font-family: 'JetBrains Mono', monospace; letter-spacing: 0.05rem;
+    text-transform: uppercase;
 }
 
-/* Upload Zone */
+/* ── Risk Indicators ───────────────────────── */
+.risk-tag {
+    padding: 6px 16px; border-radius: 50px; font-size: 0.7rem;
+    font-weight: 700; text-transform: uppercase; letter-spacing: 0.08rem;
+    display: inline-flex; align-items: center; gap: 8px;
+    width: fit-content;
+}
+.risk-high { background: rgba(255,107,107,0.1); color: var(--brand-red); border: 1px solid rgba(255,107,107,0.2); }
+.risk-low { background: rgba(81,207,102,0.1); color: var(--brand-green); border: 1px solid rgba(81,207,102,0.2); }
+
+/* ── Interaction Elements ─────────────────── */
 .upload-zone {
-  border: 2px dashed rgba(88,166,255,0.2);
-  border-radius: var(--radius-lg);
-  padding: var(--space-xl);
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
+    border: 2px dashed rgba(88,166,255,0.2); 
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg); 
+    background: rgba(88,166,255,0.015);
+    transition: all 0.3s ease;
+    text-align: center;
+    cursor: pointer;
+}
+.upload-zone:hover { border-color: var(--brand-blue); background: rgba(88,166,255,0.04); }
+
+.pippo-footer {
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding: var(--space-lg) 0; margin-top: var(--space-2xl);
+    display: flex; justify-content: space-between; align-items: center;
 }
 
-.upload-zone:hover {
-  border-color: var(--brand-blue);
-  background: rgba(88,166,255,0.04);
-}
-
-/* Animations */
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.fade-in {
-  animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both;
-}
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.fade-in { animation: fadeInUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
