@@ -4,8 +4,7 @@
 
 Pippo AI is a next-generation, agentic intelligence engine designed to navigate the complexities of modern legal landscapes. Engineered for deep-nuance analysis, Pippo AI identifies, classifies, and audits risky clauses in contractual documents with high-fidelity precision using a hybrid ML and LLM Reasoning approach.
 
-![Pippo AI Banner](https://raw.githubusercontent.com/Gautam-Bharadwaj/Pippo.ai/main/assets/PippoBanner.png) 
-*(Note: Replace with actual asset link if available)*
+![Pippo AI Banner](./assets/PippoBanner.png)
 
 ---
 
