@@ -31,7 +31,7 @@ yarn-error.log*
 # Original ignores
 venv/
 __pycache__/
-models/
+# backend/models/ is needed for prediction
 *.pyc
 .ipynb_checkpoints/
 *.db

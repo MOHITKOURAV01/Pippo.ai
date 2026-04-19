@@ -4,7 +4,7 @@
 
 Pippo AI is a next-generation, agentic intelligence engine designed to navigate the complexities of modern legal landscapes. Engineered for deep-nuance analysis, Pippo AI identifies, classifies, and audits risky clauses in contractual documents with high-fidelity precision using a hybrid ML and LLM Reasoning approach.
 
-![Pippo AI Banner](./assets/PippoBanner.png)
+![Pippo AI Banner](https://raw.githubusercontent.com/Gautam-Bharadwaj/Pippo.ai/main/assets/PippoBanner.png)
 
 ---
 
@@ -16,6 +16,36 @@ Pippo AI is built on a "Deep Audit" philosophy, moving beyond simple keyword mat
 - **Machine Learning Layer:** A robust `RandomForest` classifier provides a probabilistic baseline for risk, trained on thousands of curated legal clauses.
 - **Hybrid Scoring:** Combines data-driven ML models with logic-driven LLM agents to produce a unified "Contract DNA" risk profile.
 
+---
+
+## System Workflow
+
+Pippo AI follows a high-fidelity pipeline to transform raw legal documents into actionable risk intelligence:
+
+```mermaid
+graph LR
+    A[Contract Uplink] --> B[Intelligence Extraction]
+    B --> C[Risk Audit Engine]
+    C --> D[Actionable Insights]
+    
+    subgraph "Phase 1: Extraction"
+    B1[Metadata Parsing]
+    B2[Clause Segmentation]
+    end
+    
+    subgraph "Phase 2: Analysis"
+    C1[ML Probabilistic Scoring]
+    C2[LLM Semantic Reasoning]
+    end
+    
+    B --- B1
+    B --- B2
+    C --- C1
+    C --- C2
+```
+
+---
+
 ## Features and Capabilities
 
 ### HUD-Inspired Interface
@@ -23,58 +53,59 @@ Experience a premium, high-contrast dark theme designed for focus. Featuring gla
 
 ### Multidimensional Extraction
 - **Legal Metadata:** Automatic detection of Parties, Effective Dates, Jurisdiction, and Governing Laws.
-- **Smart OCR:** Intelligent fallback to `Tesseract OCR` for scanned documents and image-heavy PDFs.
+- **Smart OCR:** Intelligent fallback for scanned documents and image-heavy PDFs.
 - **Clause Segmentation:** Proprietary regex-based splitting that preserves legal context.
 
 ### Risk Analytics and Export
-- **Bento Dashboard:** Visual representations of risk ratios using `Plotly`.
-- **Professional Reports:** Export findings into branded, ready-to-share PDF or JSON audits.
-- **Audit Logs:** local persistence using `SQLite` for tracking historical document analysis.
+- **Bento Dashboard:** Visual representations of risk ratios using `Recharts`.
+- **Professional Reports:** Export findings into branded, ready-to-share PDF audits.
 
 ---
 
 ## Quick Start
 
 ### 1. Local Setup
-Ensure you have Python 3.9+ installed and run the following in your terminal:
+Ensure you have Node.js (18+) and Python 3.9+ installed and run the following in your terminal:
 
 ```bash
 # Clone the repository
 git clone https://github.com/Gautam-Bharadwaj/Pippo.ai.git
 cd Pippo.ai
 
-# Install dependencies
-python3 -m pip install -r requirements.txt
+# Install Frontend Dependencies
+npm install
+
+# Install Backend Dependencies
+pip install -r requirements.txt
 
 # Setup Environment
 echo "OPENAI_API_KEY=your_key_here" > .env
 
 # Launch the engine
-streamlit run app.py
+npm run dev
 ```
 
-### 2. Hosting
-- **Streamlit Cloud (Recommended):** Connect your GitHub repo and deploy. Ensure `packages.txt` is present for Tesseract support.
-- **Vercel:** Possible via the provided `vercel.json` runtime configuration.
+### 2. Deployment
+- **Vercel (Recommended):** Connect your GitHub repo and deploy. Vercel automatically detects the Next.js frontend and the FastAPI backend in `/api`.
 
 ---
 
 ## Built With
 
-- **Backend:** Python 3.9, OpenAI, LangChain, LangGraph
-- **Frontend:** Streamlit, CSS3 (Glassmorphism), Plotly
+- **Frontend:** Next.js 14, React, Framer Motion, Recharts
+- **Backend:** FastAPI, Python 3.9, OpenAI, LangChain, LangGraph
 - **Data/ML:** Scikit-learn, Pandas, NLTK, PyMuPDF
-- **Reporting:** ReportLab, Joblib
+- **Reporting:** ODFPy, Joblib
 
 ---
 
-## The Team
+## The Team & Contributions
 
-Pippo AI is the result of focused engineering and design by:
-
-- **Kumar Gautam:** System Architecture, OCR, and UX Design
-- **Mohit Kourav:** Risk ML Model & Reasoning Orchestration
-- **Karan Thakur:** Database Persistence & Reporting Systems
+| Member | Core Responsibility | Key Contribution |
+| :--- | :--- | :--- |
+| **Kumar Gautam** | System Architecture | Developed the hybrid Next.js/FastAPI foundation, OCR pipeline, and the HUD-inspired UX design system. |
+| **Mohit Kourav** | AI & ML Engineering | Engineered the RandomForest risk classifier and the Multi-Agent Reasoning orchestration using LangGraph. |
+| **Karan Thakur** | Data & Reporting | Implemented the Clause Segmentation logic, persistence layers, and the automated professional report generation. |
 
 ---
 
