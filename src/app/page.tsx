@@ -132,7 +132,7 @@ export default function Home() {
         {/* RIGHT COLUMN (IMAGE) */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <img 
-            src="/contract_shield.png" 
+            src="/whisk.png" 
             alt="Pippo Brand" 
             style={{ maxWidth:'100%', width:'min(750px, 100%)', height:'auto', filter:'drop-shadow(0 0 40px rgba(88,166,255,0.08))', marginTop: '12vh' }}
           />
