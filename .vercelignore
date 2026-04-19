@@ -1,0 +1,14 @@
+node_modules
+.next
+backend/__pycache__
+backend/data/raw
+backend/data/processed
+notebooks
+venv
+.env
+.git
+.streamlit
+app_streamlit_backup.py
+*.pdf
+temp_contract.pdf
+active_contract.pdf
