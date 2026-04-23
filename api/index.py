@@ -43,6 +43,12 @@ async def analyze_contract(file: UploadFile = File(...)):
         # 1. Extract Text
         full_text = extract_text_from_pdf(temp_path)
         
+        if not full_text or len(full_text.strip()) < 5:
+            raise HTTPException(
+                status_code=400, 
+                detail="Failed to extract readable text from the PDF. The file might be empty, password-protected, or a scanned image that requires OCR."
+            )
+
         # 2. Extract Metadata
         metadata = extract_legal_metadata(full_text)
         
