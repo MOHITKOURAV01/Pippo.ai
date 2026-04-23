@@ -41,7 +41,7 @@ def extract_text_from_pdf(pdf_path, start=0, end=None):
         return "\n".join(content)
     except Exception as err:
         print(f"PDF Error: {err}")
-        return None
+        return ""
 
 def extract_legal_metadata(text):
     """
@@ -55,6 +55,9 @@ def extract_legal_metadata(text):
         "Jurisdiction": "N/A",
         "Termination Notice": "N/A"
     }
+    
+    if not text:
+        return metadata
     
     # regex patterns for legal terms - improved for variety
     patterns = {
