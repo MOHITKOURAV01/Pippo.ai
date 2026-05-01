@@ -114,4 +114,4 @@ npm run dev
   <img src="https://img.shields.io/badge/Security-Encrypted-E91E63?style=for-the-badge&logo=security" alt="Security">
 </p>
 
-© 2026 Gautam Bharadwaj Systems // Pippo AI Intelligence.
+© Pippo AI Intelligence.
